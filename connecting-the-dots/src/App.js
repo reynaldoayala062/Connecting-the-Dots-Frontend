@@ -6,6 +6,7 @@ import Navbar from './components/navbar'
 import FormChart from './components/formChart'
 import ChartContainer from './components/chartContainer'
 
+
 import {
   BrowserRouter,
   Route,
@@ -16,20 +17,43 @@ import {
 class App extends React.Component {
 
   state = {
-    isLoggedIn: false,
     charts: []
   }
 
   componentDidMount() {
     fetch('http://localhost:3000/charts')
     .then(resp => resp.json())
-    .then(charts => {
-      this.setState({
-        ...this.state,
-        charts: charts
-      })
+    .then(charts => 
+      this.setState({ charts })
+    )
+  }
+
+  createChart = (data) => {
+    fetch('http://localhost:3000/charts', {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(resp => resp.json())
+    .then(newChart => this.setState({
+      charts: [...this.state.charts, newChart]
+    }))
+  }
+
+  deleteChart = (chartId) => {
+    fetch(`http://localhost:3000/charts/${chartId}`, {
+      method: "DELETE"
+    })
+    let newArray = this.state.charts.filter(chart => {
+      return chart.id !== chartId
+    })
+    this.setState({
+      charts: newArray
     })
   }
+
 
   render() {
     return(
@@ -38,22 +62,21 @@ class App extends React.Component {
         <Navbar />
         <ParticlesMap/>
         
-        
-          <Switch>
+        <Switch>
 
-          <Route path="/view" component={() => {
-            return <ChartContainer charts={this.state.charts}/>
-          }} />
+          <Route path="/view" >
+            {this.state.charts !== undefined ? <ChartContainer deleteChart={this.deleteChart} charts={this.state.charts} /> : null}
+          </Route>
           
-          <Route path="/login" component={() => {
-            return <Login />
-          }} />
+          <Route path="/login" >
+            <Login />
+          </Route>
 
-          <Route path="/create" component={() => {
-            return <FormChart />
-          }} />
+          <Route path="/create" >
+            <FormChart createChart={this.createChart}/>
+          </Route>
 
-          </Switch>
+        </Switch>
        
         </BrowserRouter>
       </div>

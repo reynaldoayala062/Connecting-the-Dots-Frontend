@@ -26,7 +26,7 @@ class ParticlesMap extends React.Component {
             }}
             style={{
               width: '100%',
-              background: `red` 
+              background: `lightblue` 
             }}
             />)
     }

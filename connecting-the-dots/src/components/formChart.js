@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 class FormChart extends React.Component {
 
@@ -15,35 +16,26 @@ class FormChart extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        this.createChart()
-    }
-
-    createChart = () => {
         let data = {
             name: this.state.name,
             kind: this.state.value,
             user_id: 1
         }
-        fetch('http://localhost:3000/charts', {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(resp => resp.json())
-        .then(newChart => {
-            console.log(newChart)
-            console.log(data)
-            console.log(this.state)
-        })
+        this.props.createChart(data)
     }
  
     render() { 
         const { value } = this.state
-        console.log(this.state)
+        const popover = (
+            <Popover id="popover-basic">
+              <Popover.Title as="h3">Chart has been created</Popover.Title>
+              <Popover.Content>
+                Head over to <strong>view all charts</strong> to take a look.
+              </Popover.Content>
+            </Popover>
+          );
         return(
-            <div className="container">
+            <div className="container-chart">
                 <div className="chart-form">
                     <Form onSubmit={(e) => this.handleSubmit(e)}>
                         <h2>Create New Chart</h2>
@@ -65,7 +57,9 @@ class FormChart extends React.Component {
                             onChange={this.handleChange}
                         />
                         </Form.Group>
-                        <Form.Button>Submit</Form.Button>
+                        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                            <Form.Button>Submit</Form.Button>
+                        </OverlayTrigger>
                     </Form>
                     </div>
             </div>

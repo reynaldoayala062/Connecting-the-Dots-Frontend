@@ -10,11 +10,11 @@ class ChartContainer extends React.Component {
                 <div className="view-chart">
                     <ScrollArea
                     width="900px"
-                    height="350px"
+                    height="465px"
+                    trackHidden
                     >
-                        {this.props.charts.map(chart => 
-                            <MyChart key={chart.id} chart={chart} />
-                        )}
+                        
+                        {this.props.charts !== undefined ? this.props.charts.map(chart => <MyChart key={chart.id} chart={chart} deleteChart={this.props.deleteChart} />) : null}
                     </ScrollArea>
                 </div>
             </div>

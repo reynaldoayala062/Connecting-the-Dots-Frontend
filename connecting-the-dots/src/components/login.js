@@ -1,5 +1,7 @@
 import React from 'react'
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
+
+
 
 class Login extends React.Component {
 
@@ -8,7 +10,6 @@ class Login extends React.Component {
         e.preventDefault()
         this.createUser(e.target.name.value)
     }
-
 
     createUser = (user) => {
         
@@ -24,7 +25,7 @@ class Login extends React.Component {
         })
         .then(resp => resp.json())
         .then(newUser => { console.log(newUser)
-        this.props.handleLogin()
+        
         })
     }
 
@@ -32,14 +33,14 @@ class Login extends React.Component {
         return(
 
             <div className="container">
-                <div className="card">
+                <div className="login-form">
                     <Form className="form" onSubmit={(e) => this.handlesubmit(e)} >
                         <h2>Log In</h2>
                         <Form.Field>
                             <label>First Name</label>
                             <input name="name" placeholder='First Name' />
                         </Form.Field>
-                        <Button type='submit'>Submit</Button>
+                        <Button  to="/view" type='submit'>Submit</Button>
                     </Form>
                 </div>
             </div>
