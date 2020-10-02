@@ -157,8 +157,6 @@ class MyChart extends React.Component {
                             ref={this.chartRef}      
                         />
                     </div>
-                    
-
                 </div>
             </div>
         )

@@ -28,7 +28,9 @@ class ParticlesMap extends React.Component {
               width: '100%',
               background: `lightblue` 
             }}
-            />)
+            />
+            
+        )
     }
 }
 

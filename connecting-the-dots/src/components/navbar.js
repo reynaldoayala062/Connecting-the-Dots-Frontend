@@ -7,7 +7,7 @@ class Navbar extends React.Component {
         return (
             <div className="ui secondary  menu">
                 <a className="active item">
-                <NavLink to="/"> Home </NavLink>
+                <NavLink to="/home"> Home </NavLink>
                 </a>
                 <a className="item">
                 <NavLink to="/view"> View All Charts </NavLink>

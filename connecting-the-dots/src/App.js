@@ -5,7 +5,7 @@ import Login from './components/login'
 import Navbar from './components/navbar'
 import FormChart from './components/formChart'
 import ChartContainer from './components/chartContainer'
-
+import Home from './components/home'
 
 import {
   BrowserRouter,
@@ -63,6 +63,10 @@ class App extends React.Component {
         <ParticlesMap/>
         
         <Switch>
+
+        <Route path="/home" >
+            <Home />
+          </Route>
 
           <Route path="/view" >
             {this.state.charts !== undefined ? <ChartContainer deleteChart={this.deleteChart} charts={this.state.charts} /> : null}
